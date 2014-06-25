@@ -148,8 +148,8 @@ int main(int argc, char *argv[])
                 if(reg) {
                     reg_length = (float)(end+1 - beg);
                 } else if (window_size) {
-                    reg_length = (float)(h->target_len[prev_tid] % window_size);
-                    start = h->target_len[prev_tid] - (int)reg_length;
+                    start = h->target_len[prev_tid] - (h->target_len[prev_tid] % window_size);
+                    reg_length = (float)h->target_len[prev_tid];
                 } else {
                     reg_length = (float)h->target_len[prev_tid];
                 }
@@ -159,6 +159,7 @@ int main(int argc, char *argv[])
                     total_reads[i] = 0;  // reset for next chrom
                 }
                 putchar('\n');
+                windows_in_chrom = 1;
             }
             if(window_size && pos > window_size * windows_in_chrom) {
                 printf("%s\t%d\t%d", h->target_name[prev_tid],(windows_in_chrom*window_size) - window_size, windows_in_chrom*window_size);
