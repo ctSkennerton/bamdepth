@@ -192,14 +192,13 @@ int main(int argc, char *argv[])
     }
     if(avecov) {
         if(prev_tid != -1) {  // last chrom
-            fputs(h->target_name[prev_tid], stdout);
             float reg_length;
             if(reg) {
                 reg_length = (float)(end+1 - beg);
             } else {
                 reg_length = (float)h->target_len[prev_tid];
             }
-            printf("\t%.0f", reg_length);
+            printf("%s\t%d\t%.0f", h->target_name[prev_tid], 0, reg_length);
             for (i = 0; i < n; ++i) {
                 printf("\t%.2f", (float)total_reads[i]/reg_length);
             }
