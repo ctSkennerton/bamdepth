@@ -149,11 +149,11 @@ int main(int argc, char *argv[])
                     reg_length = (float)(end+1 - beg);
                 } else if (window_size) {
                     start = h->target_len[prev_tid] - (h->target_len[prev_tid] % window_size);
-                    reg_length = (float)h->target_len[prev_tid];
+                    reg_length = (float)h->target_len[prev_tid] - (float)start;
                 } else {
                     reg_length = (float)h->target_len[prev_tid];
                 }
-                printf("%s\t%d\t%.0f", h->target_name[prev_tid], start, reg_length);
+                printf("%s\t%d\t%.0f", h->target_name[prev_tid], start, reg_length + start);
                 for (i = 0; i < n; ++i) {
                     printf("\t%.2f", (float)total_reads[i]/reg_length);
                     total_reads[i] = 0;  // reset for next chrom
